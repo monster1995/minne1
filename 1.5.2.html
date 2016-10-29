@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        ul{
+            list-style: none;
+        }
+        #container{
+            width:400px;
+            height: 300px;
+            margin:50px auto;
+        }
+        #container ul{
+            /*height:30px;*/
+            overflow: hidden;
+        }
+        #container li{
+            float: left;
+            width: 120px;
+            height:30px;
+            margin-right: 5px;
+            background: #ccc;
+            line-height: 30px;
+            text-align: center;
+            cursor:pointer;
+        }
+        #tab .select{
+            background: #000000;
+            color:#fff;
+        }
+        #content{
+            background: #eee;
+            height: 270px;
+            border-top:1px solid #000;
+        }
+        #content div{
+            display: none;
+        }
+        #content .selected{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <ul id="tab">
+        <li class="select">111</li>
+        <li>222</li>
+        <li>333</li>
+    </ul>
+    <div id="content">
+        <div class="selected">001</div>
+        <div>002</div>
+        <div>003</div>
+    </div>
+</div>
+<script>
+    var ali = document.getElementsByTagName('li');
+    var ocon = document.getElementById('content');
+    var odiv = ocon.getElementsByTagName('div');
+     for(var i=0;i<ali.length; i++ ) {
+         ali[i].index = i;
+         ali[i].onclick = function () {
+             for(var j=0;j<ali.length;j++){
+                 ali[j].className='';
+                 odiv[j].className='';
+             }
+             this.className='select';
+             odiv[this.index].className='selected';
+
+
+
+         }
+     }
+
+</script>
+
+</body>
+</html>
