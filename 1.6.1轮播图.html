@@ -120,21 +120,19 @@
                 changeImg(this.index);
 
         }
-            oNext.onclick=function(){  //函数1声明，可调用。
+        oNext.onclick=function(){  //函数1声明，可调用。
                 inow++;
                 if(inow>ali.length-1)
                 {
                     inow=0
-                };
-
+                }
                 changeImg(inow);
             }
 
-            oPrev.onclick=function(){
+        oPrev.onclick=function(){
                 inow--;
                 if(inow<0){
                     inow=ali.length-1;
-
                 }
                 changeImg(inow);
             }
@@ -142,27 +140,29 @@
 
 
         function changeImg(aa){
-            for(var i=0;i<ali.length;i++){
+                for(var i=0;i<ali.length;i++){
                 ali[i].className="";
                 aImg[i].className="";
 
             }
-            ali[aa].className="selected";
-            aImg[aa].className="selected";
+                ali[aa].className="selected";
+                aImg[aa].className="selected";
         }
         }
 
 
         var timer;
-        timer = setInterval(function(){
+                 timer = setInterval(function(){
+                 oNext.onclick();    //调用函数1
+        },1000);                        //1000是时间，ms
 
-            oNext.onclick();    //调用函数1
 
-        },1000);  //1000是时间，ms
 
         oCon.onmouseover=function () {
-            clearInterval(timer);   //清除计时器，不需要存timer
+                clearInterval(timer);       //清除计时器，不需要存timer
         }
+
+
 
         oCon.onmouseout=function () {  //notice:out
                 timer=setInterval(function(){  //注意存timer的值。
