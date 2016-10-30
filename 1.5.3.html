@@ -1,4 +1,4 @@
-<!DOCTYPE html> <!--10-29-->
+<!DOCTYPE html> <!--10-30-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -38,13 +38,15 @@
             background: #eee;
             height: 270px;
             border-top:1px solid #000;
+            position: relative;
         }
         #content div{
-            display: none;
+            background: #eee;
+            position: absolute;
+            left: 0;
+            top: 0;
         }
-        #content .selected{
-            display: block;
-        }
+
     </style>
 </head>
 <body>
@@ -55,31 +57,47 @@
         <li>333</li>
     </ul>
     <div id="content">
-        <div class="selected">001</div>
+        <div>001</div>
         <div>002</div>
         <div>003</div>
-
     </div>
 </div>
+<script src="jslib.js"></script>     <!--//引用函数-->
 <script>
-    var oContainer = document.getElementById('container');
-    var aLi =  oContainer.getElementsByTagName('li');
+    var oTab = document.getElementById('tab');
+    var aLi = oTab.getElementsByTagName('li');
     var oContent = document.getElementById('content');
     var aDiv = oContent.getElementsByTagName('div');
-
-
-    for(var i =0; i<aLi.length; i++)
-    {
-        aLi[i].index = i;//存住i的值，不然不等单击事件发生，第一层for循环就结束了。
-        aLi[i].onclick = function(){
-            for(var j=0;j<aLi.length; j++){
-                aLi[j].className = '';
-                aDiv[j].className = '';
-            }
-            this.className = 'selected';
-            aDiv[this.index].className = "selected";
-        }
+    for(var i=0; i<aDiv.length; i++){
+        aDiv[i].style.zIndex = aDiv.length - i;//保证最前面的div的z-index最大，也就是在最上面
     }
+    var zIndex = aDiv.length;   //最好不要写死。
+    for(var i=0; i<aLi.length; i++){
+        aLi[i].index = i;
+        aLi[i].onclick = function(){
+            for(var i=0; i<aLi.length; i++){  //为了置空不是selected的css样式
+                aLi[i].className = '';
+            }
+            this.className = 'selected';   //套路。
+
+            var oDiv = aDiv[this.index];
+            oDiv.style.zIndex = ++zIndex;
+            oDiv.style.opacity = 0;         //浮上来，但是透明。
+
+            animate(oDiv, {opacity: 100});  //函数（对象，{方法}）   慢慢改变透明度。
+
+
+         /*   this.className = 'selected';   //另一种，可以不定义oiv
+
+            aDiv[this.index].style.opacity = 0;
+            aDiv[this.index].style.zIndex = ++zIndex;
+            animate(aDiv[this.index], {opacity: 100}); */
+
+
+
+        };
+    }
+
 
 </script>
 </body>
