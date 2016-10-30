@@ -1,0 +1,112 @@
+<!DOCTYPE html> <!--10-30-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        ul{
+            list-style: none;
+        }
+        #container{
+            width:400px;
+            height: 300px;
+            margin:50px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        #container ul{
+            /*height:30px;*/
+            overflow: hidden;
+        }
+        #container li{
+            float: left;
+            width: 120px;
+            height:30px;
+            margin-right: 5px;
+            background: #ccc;
+            line-height: 30px;
+            text-align: center;
+            cursor:pointer;
+        }
+        #tab .selected{
+            background: #000000;
+            color:#fff;
+        }
+        #content{
+            background: #eee;
+            height: 270px;
+            border-top:1px solid #000;
+            position: absolute;
+            left: 0%;
+            top: 30px;
+        }
+        #content div{
+            background: #eee;
+            float:left;
+            width:400px;
+            height: 270px;
+
+            /*left: 0;
+            top: 0;
+            position: relative;*/
+        }
+
+    </style>
+</head>
+<body>
+<div id="container">  <!--绝对定位-->
+    <ul id="tab">
+        <li class="selected">111</li>
+        <li>222</li>
+        <li>333</li>
+    </ul>
+    <div id="content"> <!--相对定位-->
+        <div>001</div>
+        <div>002</div>
+        <div>003</div>
+    </div>
+</div>
+<script src="jslib.js"></script>     <!--//引用函数-->
+<script>
+    var oTab = document.getElementById('tab');
+     var oContent = document.getElementById('content');
+    var aDiv = oContent.getElementsByTagName('div');
+    for(var i=0; i<aDiv.length; i++){
+        aDiv[i].style.zIndex = aDiv.length - i;//保证最前面的div的z-index最大，也就是在最上面
+    }
+    /*var zIndex = aDiv.length;   //最好不要写死。*/
+    for(var i=0; i<aLi.length; i++){
+        aLi[i].index = i;
+        aLi[i].onclick = function(){
+            for(var i=0; i<aLi.length; i++){  //为了置空不是selected的css样式
+                aLi[i].className = '';
+            }
+            this.className = 'selected';   //套路。
+
+            /*var oDiv = aDiv[this.index];
+            oDiv.style.zIndex = ++zIndex;
+            oDiv.style.opacity = 0;         //浮上来，但是透明。
+
+            animate(oDiv, {opacity: 100});  //函数（对象，{方法}）   慢慢改变透明度。
+*/
+
+            /*   this.className = 'selected';   //另一种，可以不定义oiv
+
+             aDiv[this.index].style.opacity = 0;
+             aDiv[this.index].style.zIndex = ++zIndex;
+             animate(aDiv[this.index], {opacity: 100}); */
+           /************************************************************/
+             oContent.stye.left = -aDiv[0].offsetWidth*this.index +"px";
+
+
+        };
+    }
+
+
+</script>
+</body>
+</html>
