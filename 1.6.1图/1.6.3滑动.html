@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+
+        #container{
+            position: relative;
+            width: 600px;
+            height: 400px;
+            margin: 100px auto;
+               overflow: hidden;
+
+
+        }
+        #container img{
+            float: left;
+            height: 400px;
+            width: 600px;
+
+        }
+
+        #tab{
+            list-style: none;
+            position: absolute;
+            right: 10px;
+            bottom: 5px;
+            margin: 0px;
+
+        }
+        #tab li{
+            float:left;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            background: #000;
+            color: #ffffff;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+        }
+
+        #content .selected{
+            display: block;
+        }
+        #tab .selected{
+            background: orange;
+            color: lemonchiffon;
+        }
+
+        #jt{
+            position: absolute;
+            left: 10px;
+            bottom: 5px;
+            float:left;
+        }
+        #content{
+            width:2400px;
+            position: absolute;
+            left:0px;/*一定要定义初始值*/
+        }
+        #jt span{
+            float:left;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            background: #000;
+            color: #ffffff;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="content">
+        <img src="1.jpg" class="selected">
+        <img src="2.jpg"/>
+        <img src="3.jpg"/>
+        <img src="4.jpg"/>
+
+
+    </div >
+    <ul id="tab">
+
+        <li class="selected">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+
+    </ul>
+
+
+
+    <div id="jt"><!--行级元素分块-->
+        <span id="prev">&lt;</span> <!-- "<"-->
+        <span id="next">&gt;</span>  <!-- ">"-->
+    </div>
+
+</div>
+<script src="../jslib.js"></script>
+<script>
+    var oCon=document.getElementById("container");
+    var oContent=document.getElementById("content")
+    var ali = oCon.getElementsByTagName("li");
+    var aImg = oCon.getElementsByTagName("img");
+    var inow = 0;
+    var oNext = document.getElementById("next");
+    var oPrev = document.getElementById("prev");
+    for(var i=0;i<ali.length;i++){
+        ali[i].index=i;
+        ali[i].onmouseover=function(){
+            inow=this.index;//关联箭头与小角标的索引。
+            changeImg(this.index);
+
+        }
+        oNext.onclick=function(){  //函数1声明，可调用。
+            inow++;
+            if(inow>ali.length-1)
+            {
+                inow=0
+            }
+            changeImg(inow);
+        }
+        oPrev.onclick=function(){
+            inow--;
+            if(inow<0){
+                inow=ali.length-1;
+            }
+            changeImg(inow);
+        }
+        function changeImg(aa){
+            for(var i=0;i<ali.length;i++){
+                ali[i].className="";
+            }
+            ali[aa].className="selected";
+
+            animate(oContent,{
+                left:-aImg[0].offsetWidth*aa
+            });
+        }
+        }
+
+        var timer;
+    timer = setInterval(function(){
+        oNext.onclick();    //调用函数1
+    },2000);                        //1000是时间，ms
+
+    oCon.onmouseover=function () {
+        clearInterval(timer);       //清除计时器，不需要存timer
+    }
+
+    oCon.onmouseout=function () {  //notice:out
+        timer=setInterval(function(){  //注意存timer的值。
+            oNext.onclick();
+        },2000);
+    }
+
+</script>
+
+</body>
+</html>
