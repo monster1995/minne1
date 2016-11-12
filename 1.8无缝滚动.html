@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        /*ul{*/
+            /*list-style: none;*/
+        /*}*/
+        #container{
+            position: relative;
+            width:450px;
+            height:280px;
+            border: 1px #000000 solid;
+            margin: 50px auto;
+        }
+        #content{
+            width: 520px;
+            position: absolute;
+        }
+        #content li{
+
+            width:120px;
+            height: 120px;
+            background: #000;
+            color: #ffffff;
+            float: left;
+            text-align: center;
+            font-size: 32px;
+            line-height: 120px;
+            overflow: auto;
+            margin-right: 10px;
+        }
+        #arrow span{
+            width:100px;
+            height: 40px;
+            background: gray;
+            color: black;
+            text-align: center;
+            margin-right: 5px;
+            float: left;
+            line-height: 40px;
+        }
+
+        #arrow{
+            position: absolute;
+
+            left: 50%;
+            margin-left: -105px;
+            bottom: 20px;
+
+
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <ul id="content">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <div id="arrow">
+        <span>&lt;&lt;向左</span>
+        <span>向右&gt;&gt;</span>
+    </div>
+</div>
+<script>
+    var ocontent = document.getElementById("content");
+
+    ocontent.innerHTML = ocontent.innerHTML+ocontent.innerHTML;
+    var ali = ocontent.getElementsByTagName("li");
+    ocontent.style.width = ali.length * (ali[0].offsetWidth+10)+"px";
+    var speed=-2;
+    setInterval(function(){
+        if(ocontent.offsetLeft<=-ocontent.offsetWidth/2){
+            ocontent.style.left = 0;
+        }
+        ocontent.style.left = ocontent.offsetLeft + speed +"px";
+
+    },10);
+    orbtn.onmousemove=function(){
+        speed=2;
+    }
+    olbtn.onmousemove=function(){
+        speed=-2;
+    }
+    document.onmouseout=function(){
+        speed=0;
+    }
+</script>
+
+</body>
+</html>
