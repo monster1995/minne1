@@ -26,7 +26,60 @@
 
 <script>
 
-    var oDiv1=document.getElementById('drag');
+    var Odrag = document.getElementById("drag");
+
+    Odrag.onmousedown = function(e){
+        e = e|| window.event;
+        var ileft= e.clientX - Odrag.offsetLeft;
+        var itop= e.clientY - Odrag.offsetTop;
+
+        document.onmousemove = function(e){
+            e=e||window.event;
+            var left=e.clientX-ileft;
+            var top=e.clientY-itop;
+
+
+            if(left<0){
+                left=0;
+            }else if(left>document.documentElement.clientWidth- Odrag.offsetWidth){
+                left = document.documentElement.clientWidth - Odrag.offsetWidth
+            };
+
+            if(top<0){
+                top=0;
+            }else if(top>document.documentElement.clientHeight- Odrag.offsetHeight){
+                top = document.documentElement.clientHeight - Odrag.offsetHeight
+            }
+
+
+            Odrag.style.left = left+'px';
+            Odrag.style.top = top+'px';
+        }
+
+        document.onmouseup = function(){
+            document.onmousemove = null;
+        }
+    }
+
+1/*1/18编写*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /*   var oDiv1=document.getElementById('drag');
     oDiv1.onmousedown = function (e) {
         e=e||window.event;
         var ileft = e.clientX - oDiv1.offsetLeft;
@@ -62,7 +115,7 @@
 
 
 
-    }
+    }*/
 </script>
 
 </body>
